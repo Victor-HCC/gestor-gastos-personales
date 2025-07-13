@@ -60,7 +60,7 @@ gastos-personales/
 Ejecutá el programa principal con:
 
   ```bash
-  python main.py
+  python3 main.py
   ```
 
 ---

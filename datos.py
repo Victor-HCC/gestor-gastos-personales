@@ -1,6 +1,7 @@
 import json
 from rich.console import Console
 from rich.text import Text
+import os
 
 console = Console()
 
@@ -13,8 +14,10 @@ def load_data():
   y devuelve una lista vacía.
   """
   
+  file_directory = 'data/movimientos.json' # Ruta del archivo JSON
+  folder = os.path.dirname(file_directory) # Obtiene el directorio del archivo
+  
   try:
-    file_directory = 'data/movimientos.json' # Ruta del archivo JSON
     # Intenta abrir el archivo y cargar los datos
     with open(file_directory, 'r') as file:
       data = json.load(file)
@@ -24,6 +27,8 @@ def load_data():
     msg = Text(f"El archivo {file_directory} no existe. Se creará uno nuevo.")
     msg.stylize("bold white on yellow")
     console.print(msg)
+    
+    os.makedirs(folder, exist_ok=True) # Crea el directorio si no existe
     # Se crea un nuevo archivo vacío
     with open(file_directory, 'w') as file:
       json.dump([], file)
@@ -33,6 +38,9 @@ def load_data():
     msg = Text(f"Error al decodificar el archivo {file_directory}. Se creará uno nuevo.")
     msg.stylize("bold white on yellow")
     console.print(msg)
+    
+    os.makedirs(folder, exist_ok=True)
+    
     # Se crea un nuevo archivo vacío
     with open(file_directory, 'w') as file:
       json.dump([], file)
